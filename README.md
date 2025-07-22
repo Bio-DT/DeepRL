@@ -27,29 +27,31 @@ We run all of our code on the Linux system. The requirements of this system are 
 - GPU: NVIDIACorporationGA100 (A100 SXM480GB)
 ```
 
-## Data 
+## Processing Data 
 ```
-For DDA prediciton, we use two datasets, including Cdataset and Fdataset. For each dataset, the detailed description is as follows:
-- Drug_mol2vec: The mol2vec embeddings for drugs to construct the association network
-- DrugFingerprint, DrugGIP: The similarity measurements of drugs to construct the similarity network
-- DiseaseFeature: The disease embeddings to construct the association network
-- DiseasePS, DiseaseGIP: The similarity measurements of diseases to construct the similarity network
-- Protein_ESM: The ESM-2 embeddings for proteins to construct the association network
-- DrugDiseaseAssociationNumber: The known drug disease associations
-- DrugProteinAssociationNumber: The known drug protein associations
-- ProteinDiseaseAssociationNumber: The known disease protein associations
+For DDA prediciton, we use two datasets, including Cdataset and Fdataset. For each dataset, the detailed processing methods are as follows:
+We use preprocessing.py to process data that conforms to the model's input requirements.
 
 For DTA prediciton, we use two datasets, including Davis and Kiba datasets. For each dataset, the detailed processing methods are as follows:
-we use creat_data.py to generate data that conforms to the model's input requirements.
+We use create_data.py to produce data formatted according to the model’s input specifications.
 
 For 3D molecule optimizaiton, we use PDBbind dataset to pretrain model, and the dataset is downloaded from http://www.pdbbind.org.cn/.
 Following this, process this dataset by preprocessing.py
 
 ```
 
-
-
 ## Training model
 ```
-We 
+For DDA prediction, run the following commands:
+conda activate DeepRL
+python train.py
+
+For DTA prediction, run the following commands:
+conda activate DeepRL
+- For Davis dataset, run python train.py 0 0 0
+- For Kiba dataset, run python train.py 1 1 0
+
+For 3D molecule optimization, run the following commands:
+conda activate DeepRL
+python train.py
 ```
