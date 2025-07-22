@@ -1,2 +1,3 @@
 # DeepRL: a unified multi-level deep representation learning framework to enhance drug discovery and optimization
-# Setup and dependencies
+# Install environment
+##conda create -n DeeRL python=3.9
