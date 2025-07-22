@@ -1,6 +1,6 @@
 # DeepRL: a unified multi-level deep representation learning framework to enhance drug discovery and optimization
 ## Install environment
-You can install the required packages by running the following commands:
+You can configure the environment by using the following commands:
 ```
 conda create -n DeepRL python=3.9
 conda activate DeepRL
@@ -13,10 +13,10 @@ pip install torch_spline_conv-1.2.2+pt23cu121-cp39-cp39-linux_x86_64.whl
 pip install torch-geometric
 Note:Please note: Please uninstall the corresponding.whl file from the official website. https://data.pyg.org/whl/
 
-pip install rdkit 
-pip install biopython
-pip install openbabel
-pip install plip
+pip install rdkit= 2024.3.5
+pip install biopython=1.83
+pip install openbabel=3.1.1 
+pip install plip=2.4.0
 
 ```
 
