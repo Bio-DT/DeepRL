@@ -19,4 +19,18 @@ pip install openbabel=3.1.1
 pip install plip=2.4.0
 
 ```
+## System requirements
+```
+We run all of our code on the Linux system. The requirements of this system are as follows:
++ Operating System: Ubuntu 22.04.4 LTS
++ CPU: Intel® Xeon(R) Platinum 8370C CPU @ 2.80GHz (128GB) 
++ GPU: NVIDIACorporationGA100 (A100 SXM480GB)
 
+```
+
+## Data preprocessing
+
+## Training model
+```
+We 
+```
