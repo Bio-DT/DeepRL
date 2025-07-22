@@ -1,8 +1,9 @@
 # DeepRL: a unified multi-level deep representation learning framework to enhance drug discovery and optimization
 # Install environment
-you can install this environment by following commands
-'''
-conda create -n DeeRL python=3.9
-pip install 
-'''
+## Install packages
+You can install the required packages by running the following commands:
+```
+chmod +x install_packages.sh
+bash install_packages.sh
+```
 
