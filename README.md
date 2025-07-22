@@ -22,14 +22,14 @@ pip install plip=2.4.0
 ## System requirements
 ```
 We run all of our code on the Linux system. The requirements of this system are as follows:
-Operating System: Ubuntu 22.04.4 LTS
-CPU: Intel® Xeon(R) Platinum 8370C CPU @ 2.80GHz (128GB) 
-GPU: NVIDIACorporationGA100 (A100 SXM480GB)
+- Operating System: Ubuntu 22.04.4 LTS
+- CPU: Intel® Xeon(R) Platinum 8370C CPU @ 2.80GHz (128GB) 
+- GPU: NVIDIACorporationGA100 (A100 SXM480GB)
 ```
 
 ## Data 
 ```
-For DDA prediciton, we use two datasets, including C-dataset and F-dataset. For each dataset, the detailed description is as follows:
+For DDA prediciton, we use two datasets, including Cdataset and Fdataset. For each dataset, the detailed description is as follows:
 - Drug_mol2vec: The mol2vec embeddings for drugs to construct the association network
 - DrugFingerprint, DrugGIP: The similarity measurements of drugs to construct the similarity network
 - DiseaseFeature: The disease embeddings to construct the association network
@@ -38,6 +38,12 @@ For DDA prediciton, we use two datasets, including C-dataset and F-dataset. For 
 - DrugDiseaseAssociationNumber: The known drug disease associations
 - DrugProteinAssociationNumber: The known drug protein associations
 - ProteinDiseaseAssociationNumber: The known disease protein associations
+
+For DTA prediciton, we use two datasets, including Davis and Kiba datasets. For each dataset, the detailed processing methods are as follows:
+we use creat_data.py to generate data that conforms to the model's input requirements.
+
+For 3D molecule optimizaiton, we use PDBbind dataset to pretrain model, and the dataset is downloaded from http://www.pdbbind.org.cn/.
+Following this, process this dataset by preprocessing.py
 
 ```
 
