@@ -38,6 +38,7 @@ We use create_data.py to produce data formatted according to the model’s input
 For 3D molecule optimizaiton, we use PDBbind dataset to pretrain model, and the dataset is downloaded from http://www.pdbbind.org.cn/.
 Following this, process this dataset by preprocessing.py
 
+Besides, we have provided all the processed data.
 ```
 
 ## Training model
