@@ -44,8 +44,8 @@ class DeepRL_3D_model(nn.Module):
         self.next_dist_ll = NextDist(args, self.embedding.l_node_emb)
         self.next_dist_lp = NextDist(args, self.embedding.l_node_emb)
 
-        self.loss_label_cla = nn.CrossEntropyLoss() #分类损失
-        self.loss_label_reg = nn.MSELoss() #回归损失
+        self.loss_label_cla = nn.CrossEntropyLoss() 
+        self.loss_label_reg = nn.MSELoss() 
 
         self.loss_fn = nn.KLDivLoss(reduction="none")
         if args.ssl:
@@ -88,17 +88,17 @@ class DeepRL_3D_model(nn.Module):
         # exit()
 
         # Embed(propagate) whole graph
-        self.embedding(whole, cond=whole_cond)  #把维度embedding为128维，原来9维
+        self.embedding(whole, cond=whole_cond)  
 
 
         # Sample latent vector and calculate vae loss
         h_cat_sub = torch.cat([whole["ligand"].h, whole["pocket"].h], 0)  # [L+P F]
         h_cat = h_cat_sub.mean(dim=0, keepdim=True)  # [1 F]
 
-        latent, vae_loss = self.vae(whole, whole_ligand, whole_pocket)  #latent--[1,128]，进行预测的时候，返回latent
+        latent, vae_loss = self.vae(whole, whole_ligand, whole_pocket)  
 
         # Embed(propagate) unfinished graph
-        self.embedding(traj, cond=traj_cond)  #把维度embedding为128维，原来9维
+        self.embedding(traj, cond=traj_cond) 
 
 
 
@@ -203,7 +203,7 @@ class Embedding(nn.Module):
 
         llama_logits_ligand = self.llama(data["ligand"].h).mean(dim=2)
         llama_logits_pocket = self.llama(data["pocket"].h).mean(dim=2)
-        data["ligand"].h = data["ligand"].h + llama_logits_ligand.detach()  #data["ligand"].h + llama_logits_ligand-->存在就地操作,应修改为：data["ligand"].h + llama_logits_ligand.detach()
+        data["ligand"].h = data["ligand"].h + llama_logits_ligand.detach() 
         data["pocket"].h = data["pocket"].h + llama_logits_pocket.detach()
 
 
@@ -327,11 +327,10 @@ class NextDist(nn.Module):
 class ContrastiveLoss(nn.Module):
     def forward(self, output1, output2):
         distance = torch.norm(output1 - output2, p=2, dim=1)
-        # 这里假设你有一个阈值来定义相似性
         margin = 1.0
         return torch.mean(torch.relu(margin - distance))
 
-# 定义编码器
+
 class Encoder(nn.Module):
     def __init__(self, input_dim, hidden_dim, z_dim):
         super(Encoder, self).__init__()
@@ -345,8 +344,7 @@ class Encoder(nn.Module):
         mu = self.fc_mu(h)
         logvar = self.fc_logvar(h)
         return mu, logvar
-    
-# 定义解码器
+
 class Decoder(nn.Module):
     def __init__(self, z_dim, hidden_dim, output_dim):
         super(Decoder, self).__init__()
@@ -385,11 +383,11 @@ class VariationalEncoder(nn.Module):
     def vae_loss(self, mean, logvar):
         return -0.5 * torch.sum(1 + logvar - mean.pow(2) - logvar.exp(), dim=-1)
         # cos_sim = F.cosine_similarity(x, x_hat) #[-1,1]
-        # cos_sim_loss = 1 -cos_sim #通过1-，[0,2]可以衡量损失的大小，相似度越高损失越小，相似度越低损失越大
+        # cos_sim_loss = 1 -cos_sim 
 
     def vae_loss_1(self, x, x_hat, mean, logvar):
-        recon_loss = F.binary_cross_entropy(x_hat, torch.sigmoid(x)) #重构损失
-        kl_div = -0.5 * torch.sum(1 + logvar - mean.pow(2) - logvar.exp(), dim=-1) #KL散度损失
+        recon_loss = F.binary_cross_entropy(x_hat, torch.sigmoid(x)) 
+        kl_div = -0.5 * torch.sum(1 + logvar - mean.pow(2) - logvar.exp(), dim=-1) 
         vae_loss = recon_loss + kl_div
         return vae_loss
 
@@ -397,7 +395,7 @@ class VariationalEncoder(nn.Module):
     def vae_loss_sub(self, mean, logvar):
         #return -0.5 * torch.sum(1 + logvar - mean.pow(2) - logvar.exp(), dim=-1)
         cos_sim = F.cosine_similarity(mean, logvar) #[-1,1]
-        cos_sim_loss = 1 -cos_sim #通过1-，[0,2]可以衡量损失的大小，相似度越高损失越小，相似度越低损失越大
+        cos_sim_loss = 1 -cos_sim 
         return cos_sim_loss
 
     def vae_loss_sub_sub(self, output1, output2):
@@ -405,7 +403,6 @@ class VariationalEncoder(nn.Module):
         # print("==========output1====",output1)
         # print("==========output2====",output2)
         # print("==========distance====",distance)
-        # 这里假设有一个阈值来定义相似性
         margin = 2.0
         return torch.mean(torch.relu(margin - distance))
 
