@@ -125,9 +125,9 @@ def filter_generated_results(keys, result_dir, train_smiles=None, filter_level=0
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
 
-    parser.add_argument("--result_dir", help="directory for generated molecules", type=str, default="/media/estar/98519505-51e9-4e2d-b09d-5a389290bcd9/yh/DeepRL/3D/example/results_dir")
-    parser.add_argument("--key_dir", help="directory for keys", type=str, default="/media/estar/98519505-51e9-4e2d-b09d-5a389290bcd9/yh/DeepRL/3D/example/test_keys.pkl")
-    parser.add_argument("--smi_dir", help="directory for training set smiles", type=str, default="/media/estar/98519505-51e9-4e2d-b09d-5a389290bcd9/yh/DeepRL/3D/data/keys/train_smiles.txt")
+    parser.add_argument("--result_dir", help="directory for generated molecules", type=str, default="./DeepRL/3D/example/results_dir")
+    parser.add_argument("--key_dir", help="directory for keys", type=str, default="./DeepRL/3D/example/test_keys.pkl")
+    parser.add_argument("--smi_dir", help="directory for training set smiles", type=str, default="./DeepRL/3D/data/keys/train_smiles.txt")
     parser.add_argument(
         "--filter_level", 
         help="filter level, 0: All, 1: Valid, 2: Unique, 3: Novel", 
