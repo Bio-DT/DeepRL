@@ -47,7 +47,8 @@ conda activate DeepRL
 python train.py
 
 For DTA prediction, run the following commands:
-conda activate DeepRL
+- conda activate DeepRL
+- python create_data.py
 - For Davis dataset, run python train.py 0 0 0
 - For Kiba dataset, run python train.py 1 1 0
 
