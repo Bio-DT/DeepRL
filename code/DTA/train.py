@@ -98,28 +98,28 @@ for dataset in datasets:
         device = torch.device(cuda_name if torch.cuda.is_available() else "cpu")
         model = modeling().to(device)
 
-        ##load model
-        load_model_path = os.path.join(save_model, 'model_' + model_st + '_' + dataset +  '.pt')
-        if os.path.exists(load_model_path):
-            save_file_dict = torch.load(load_model_path)
-            # 处理参数名称（如果保存时使用了多GPU训练，参数名称可能带有 "module." 前缀）
-            new_save_file_dict = {k.replace("module.", ""): v for k, v in save_file_dict.items()}
+       # ##load model
+        # load_model_path = os.path.join(save_model, 'model_' + model_st + '_' + dataset +  '.pt')
+        # if os.path.exists(load_model_path):
+        #     save_file_dict = torch.load(load_model_path)
+        #     # 处理参数名称（如果保存时使用了多GPU训练，参数名称可能带有 "module." 前缀）
+        #     new_save_file_dict = {k.replace("module.", ""): v for k, v in save_file_dict.items()}
             
-            # 获取当前模型的 state_dict
-            model_state_dict = model.state_dict()
+        #     # 获取当前模型的 state_dict
+        #     model_state_dict = model.state_dict()
             
-            # 只加载匹配的参数
-            for key, value in new_save_file_dict.items():
-                if key in model_state_dict and model_state_dict[key].shape == value.shape:
-                    model_state_dict[key] = value
-                else:
-                    print(f"Skipping {key} due to size mismatch or missing key.")
+        #     # 只加载匹配的参数
+        #     for key, value in new_save_file_dict.items():
+        #         if key in model_state_dict and model_state_dict[key].shape == value.shape:
+        #             model_state_dict[key] = value
+        #         else:
+        #             print(f"Skipping {key} due to size mismatch or missing key.")
             
-            # 加载调整后的参数
-            model.load_state_dict(model_state_dict, strict=False)
-            print(f"Model parameters loaded from {load_model_path}")
-        else:
-            print(f"No saved model found at {load_model_path}, training from scratch.")
+        #     # 加载调整后的参数
+        #     model.load_state_dict(model_state_dict, strict=False)
+        #     print(f"Model parameters loaded from {load_model_path}")
+        # else:
+        #     print(f"No saved model found at {load_model_path}, training from scratch.")
 
 
         loss_fn = nn.MSELoss()
