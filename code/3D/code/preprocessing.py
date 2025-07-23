@@ -18,11 +18,11 @@ python preprocessor.py {DATA_DIR} {SAVE_DIR} {NCPU}
 # save_dir = sys.argv[2]
 
 #处理原来的数据
-# data_dir = "/media/estar/98519505-51e9-4e2d-b09d-5a389290bcd9/yh/3D-molecular/DeepICL-master/data/PDBbind"
-# save_dir = "/media/estar/98519505-51e9-4e2d-b09d-5a389290bcd9/yh/3D-molecular/DeepICL-master/data/PDBbind_PRO_SAVE_DIR"
+# data_dir = "./DeepRL/3D/data/PDBbind"
+# save_dir = "./DeepRL/3D/data/PDBbind_PRO_SAVE_DIR"
 
-data_dir = "/media/estar/98519505-51e9-4e2d-b09d-5a389290bcd9/yh/DeepRL/3D/example"
-save_dir = "/media/estar/98519505-51e9-4e2d-b09d-5a389290bcd9/yh/DeepRL/3D/example_save"
+data_dir = "./DeepRL/3D/example"
+save_dir = "./DeepRL/3D/example_save"
 
 print(f"save_dir: {save_dir}")
 if len(os.listdir(save_dir)) > 0:
@@ -52,9 +52,6 @@ if __name__ == '__main__':
     max_add_atom_num=30, #30
     use_whole_protein=False,
     predefined_scaffold=None,)
-
-    # print("========debug=======")
-    # exit()#调试代码停止语句
 
     print("NUM DATA:", preprocessor.num_data)
     time.sleep(2.0)
