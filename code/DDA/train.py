@@ -10,14 +10,6 @@ from preprocessing import *
 from model.DeepRL_DDA import DeepRL_DDA_model
 from metric import *
 
-"""install env
-pytorch--> pip install torch==2.4.0 torchvision==0.19.0 torchaudio==2.4.0 --index-url https://download.pytorch.org/whl/cu121
-dgl--> pip install  dgl -f https://data.dgl.ai/wheels/torch-2.4/cu121/repo.html (linux);  pip install  dgl -f https://data.dgl.ai/wheels/cu121/repo.html (windows)
-network--> pip install networkx
-pip install -U scikit-learn
-pip install fairscale
-"""
-
 
 device = torch.device('cuda')
 
