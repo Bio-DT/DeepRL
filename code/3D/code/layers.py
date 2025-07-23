@@ -43,7 +43,7 @@ class E3II_Layer(nn.Module):  # E(3)-invariant interaction layer
             nn.Linear(2 * self.hidden_feature, 1), nn.Sigmoid()
         )
 
-      #############初始化############  
+      #########################  
         # for layer in self.cond_mlp:
         #     if isinstance(layer, nn.Linear):
         #         nn.init.xavier_uniform_(layer.weight)
@@ -294,7 +294,7 @@ class SoftOneHot(nn.Module):
             x_embed (torch.Tensor): Gaussian expanded distance matrix with \
                     dimension [A B steps]
         """
-        # torch.set_printoptions(profile="full") #tensor：设置print()打印出所有元素
+        # torch.set_printoptions(profile="full") #tensor：
         # print("==========x========",x)
         # #exit()
 
@@ -306,11 +306,7 @@ class SoftOneHot(nn.Module):
         if self.normalize:
             x_embed /= torch.sum(x_embed, -1, keepdim=True)
         return x_embed
-    
-'''这个代码定义了一个名为 SoftOneHot_1 的 PyTorch 神经网络模块，
-主要用于对给定的距离矩阵进行高斯展开(Gaussian expansion),
-并将距离矩阵通过高斯函数映射到一个更高维度的空间。
-其目的是在某些任务中对距离进行扩展，以便神经网络能够更好地处理这些信息。'''
+
     
 class SoftOneHot_1(nn.Module):
     r"""
@@ -350,15 +346,15 @@ class SoftOneHot_1(nn.Module):
             x_embed (torch.Tensor): Gaussian expanded distance matrix with \
                     dimension [A B steps]
         """
-        torch.set_printoptions(profile="full") #tensor：设置print()打印出所有元素
+        torch.set_printoptions(profile="full") #tensor
 
         x_repeat = x.unsqueeze(-1).repeat(1, 1, self.steps)
         c_repeat = self.center.unsqueeze(0).unsqueeze(0)
         c_repeat = c_repeat.to(x_repeat.device)
-        x_embed = torch.exp(-self.gamma * torch.pow(x_repeat - c_repeat, 2))  #这里应用了高斯函数公式 exp(-gamma * (x - center)^2)，对每个距离值应用高斯扩展。
-        if self.normalize:  #self.normalize这里有问题nan
+        x_embed = torch.exp(-self.gamma * torch.pow(x_repeat - c_repeat, 2)) 
+        if self.normalize: 
             epsilon = 1e-8
-            x_embed /= (torch.sum(x_embed, -1, keepdim=True) + epsilon)   #原来的归一化，分母中存在0
+            x_embed /= (torch.sum(x_embed, -1, keepdim=True) + epsilon)  
         return x_embed
     
 class SoftOneHot_2(nn.Module):
@@ -399,9 +395,6 @@ class SoftOneHot_2(nn.Module):
             x_embed (torch.Tensor): Gaussian expanded distance matrix with \
                     dimension [A B steps]
         """
-        # torch.set_printoptions(profile="full") #tensor：设置print()打印出所有元素
-        # print("==========x========",x)
-        #exit()
 
 
         x_repeat = x.unsqueeze(-1).repeat(1, 1, self.steps)
@@ -445,4 +438,4 @@ if __name__ == "__main__":
     args.conditional = False
     args.dist_one_hot_param1 = [0, 10, 20]
 
-    # layer = IAGMN_Layer(args) #原来有的
+    # layer = IAGMN_Layer(args)
