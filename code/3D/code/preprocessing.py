@@ -17,7 +17,6 @@ python preprocessor.py {DATA_DIR} {SAVE_DIR} {NCPU}
 # data_dir = sys.argv[1]
 # save_dir = sys.argv[2]
 
-#处理原来的数据
 # data_dir = "./DeepRL/3D/data/PDBbind"
 # save_dir = "./DeepRL/3D/data/PDBbind_PRO_SAVE_DIR"
 
@@ -57,7 +56,7 @@ if __name__ == '__main__':
     time.sleep(2.0)
     
     st = time.time()
-    pool = Pool(processes=8)  #int(sys.argv[3])是指-进程数{NCPU}
+    pool = Pool(processes=8)  
     r = pool.map_async(preprocessor.run, list(range(preprocessor.num_data)))
     r.wait()
     pool.close()
