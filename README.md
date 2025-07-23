@@ -43,8 +43,8 @@ Following this, process this dataset by preprocessing.py
 ## Training model
 ```
 For DDA prediction, run the following commands:
-conda activate DeepRL
-python train.py
+- conda activate DeepRL
+- python train.py
 
 For DTA prediction, run the following commands:
 - conda activate DeepRL
@@ -53,6 +53,6 @@ For DTA prediction, run the following commands:
 - For Kiba dataset, run python train.py 1 1 0
 
 For 3D molecule optimization, run the following commands:
-conda activate DeepRL
-python train.py
+- conda activate DeepRL
+- python train.py
 ```
