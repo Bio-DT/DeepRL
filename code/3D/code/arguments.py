@@ -9,9 +9,9 @@ def train_args_parser():
     parser = argparse.ArgumentParser()
 
     # DEFAULT SETTINGS
-    parser.add_argument("--world_size", help="world size", type=int, default=1) #表示使用的GPU的数量
+    parser.add_argument("--world_size", help="world size", type=int, default=1) 
     parser.add_argument(
-        "--distributed", help="distributed", action="store_true", default=False ) #是否使用分布式训练
+        "--distributed", help="distributed", action="store_true", default=False ) 
     parser.add_argument(
         "--autocast", help="autocast", action="store_true", default=False )
     parser.add_argument("--num_workers", help="number of workers", type=int, default=0)
@@ -104,7 +104,7 @@ def generate_args_parser():
     # DEFAULT SETTINGS
     parser.add_argument("--ngpu", help="ngpu", type=int, default=0)
     parser.add_argument("--ncpu", help="ncpu", type=int, default=30 )  #30
-    parser.add_argument("-y", help="delete", action="store_true", default=True)  #y为True才会显示产生过程
+    parser.add_argument("-y", help="delete", action="store_true", default=True) 
 
     # DIRECTORY SETTINGS
     #####with_ligand#####
@@ -154,9 +154,9 @@ def generate_args_parser():
         nargs="+",
         default=[0, 15, 300],
     )
-    parser.add_argument("--use_scaffold", help="use_scaffold", action="store_true",default=False)  #是否带有配体 
-    parser.add_argument("--conditional", help="conditional", action="store_true",default=True)  #是否带有条件
-    parser.add_argument("--use_condition", help="use condition", action="store_true",default=True) #action="store_true" 带有ligand和不带有ligand这个条件都是true
+    parser.add_argument("--use_scaffold", help="use_scaffold", action="store_true",default=False) 
+    parser.add_argument("--conditional", help="conditional", action="store_true",default=True)  
+    parser.add_argument("--use_condition", help="use condition", action="store_true",default=True)
     parser.add_argument(
         "--num_cond_feature",
         help="num condition features",
@@ -168,15 +168,15 @@ def generate_args_parser():
     # GENERATING SETTINGS
     parser.add_argument("--k", help="k for k-NN parameter", type=int, default=8)
     parser.add_argument("--max_num_add_atom", type=int, default=30)
-    parser.add_argument("--radial_limits", type=float, nargs="+", default=[0.9, 2.2])  #用于生成网格坐标的径向限制
-    parser.add_argument("--num_sample", help="num samples", type=int, default=100)  #默认30
+    parser.add_argument("--radial_limits", type=float, nargs="+", default=[0.9, 2.2])  
+    parser.add_argument("--num_sample", help="num samples", type=int, default=100)  
     parser.add_argument("--add_noise", help="add noise", action="store_true", default=True)
     parser.add_argument("--pocket_coeff_max", type=float, default=10.0)
     parser.add_argument("--pocket_coeff_thr", type=float, default=2.5)
     parser.add_argument("--pocket_coeff_beta", type=float, default=0.91)
     parser.add_argument("--dropout", help="dropout parameter", type=float, default=0.0)
-    parser.add_argument("--temperature_factor1", type=float, default=0.05) #默认0.1
-    parser.add_argument("--temperature_factor2", type=float, default=0.05) #默认0.1
+    parser.add_argument("--temperature_factor1", type=float, default=0.05)
+    parser.add_argument("--temperature_factor2", type=float, default=0.05)
     parser.add_argument("--translation_coeff", type=float, default=0.2)
     parser.add_argument("--rotation_coeff", type=float, default=PI / 90)
     parser.add_argument("--verbose", help="verbal mode", action="store_true", default=True)
@@ -189,9 +189,9 @@ def test_args_parser():
     parser = argparse.ArgumentParser()
 
     # DEFAULT SETTINGS
-    parser.add_argument("--world_size", help="world size", type=int, default=1) #表示使用的GPU的数量
+    parser.add_argument("--world_size", help="world size", type=int, default=1) 
     parser.add_argument(
-        "--distributed", help="distributed", action="store_true", default=False ) #是否使用分布式训练
+        "--distributed", help="distributed", action="store_true", default=False ) 
     parser.add_argument(
         "--autocast", help="autocast", action="store_true", default=False )
     parser.add_argument("--num_workers", help="number of workers", type=int, default=0)
@@ -204,7 +204,7 @@ def test_args_parser():
 
     parser.add_argument("--data_dir_2", help="data directory", type=str, default="./DeepRL/3D/data/PDBbind_PRO_SAVE_DIR_2/")
     parser.add_argument("--key_dir_2", help="key directory", type=str, default="./DeepRL/3D/data/keys_2/")
-    parser.add_argument("--restart_dir", help="restart model directory", type=str, default="./DeepRL/3D/code/SAVE_DIR/save_18.pt") #save_10.pt不错
+    parser.add_argument("--restart_dir", help="restart model directory", type=str, default="./DeepRL/3D/code/SAVE_DIR/save_18.pt")
 
     # DATASET SETTINGS
     parser.add_argument("--k", help="k for k-NN parameter", type=int, default=8)
