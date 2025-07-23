@@ -161,16 +161,16 @@ class DataProcessor(object):
                     continue
 
                 # Select next node from neighboring nodes 
-                next = torch.nonzero(adj[cur] > 0)[0][0] #找到 adj[cur] 中所有大于零的元素的索引，并取其中的第一个索引。
+                next = torch.nonzero(adj[cur] > 0)[0][0] 
                 # next = torch.multinomial(adj[cur], 1)[0] # select randomly from the neighboring nodes
 
             # Get true type and coordinate
             next_Z = l_dict["l_Z"][next : next + 1]
             next_R = l_dict["l_R"][next : next + 1]
 
-            #torch.set_printoptions(profile="full") #tensor：设置print()打印出所有元素
+            #torch.set_printoptions(profile="full") 
 
-            next_ll_d = self.distance_expand2(torch.cdist(next_R, l_R_in))[0] #next_ll_d出现nan,一个主要的问题所在,self.distance_expand2()这个有问题nan
+            next_ll_d = self.distance_expand2(torch.cdist(next_R, l_R_in))[0] 
             next_lp_d = self.distance_expand2(torch.cdist(next_R, p_R_in))[0]
             
 
@@ -181,8 +181,8 @@ class DataProcessor(object):
             data_list.append(data)
 
 
-            #torch.set_printoptions(profile="full") #tensor：设置print()打印出所有元素
-            #np.set_printoptions(threshold=np.inf) #numpy：设置print()打印出所有元素
+            #torch.set_printoptions(profile="full") 
+            #np.set_printoptions(threshold=np.inf) 
 
             # Update order, adj, avail
             order += [int(next)]
@@ -223,7 +223,7 @@ class DataProcessor(object):
             scaff_n,
             _,
             _,
-            pocket_prop, #表示相互作用信息
+            pocket_prop, 
             center_of_mass,
             #label
         ) = data
@@ -280,27 +280,27 @@ class DataProcessor(object):
 
         complex["ligand", "l2l", "ligand"].edge_index = radius_graph(
             l_R, r=self.radial_cutoff
-        )  #使用 radius_graph 为配体生成一个在 self.radial_cutoff 半径内的图边，生成配体内的边 l2l
+        ) 
         complex["pocket", "p2p", "pocket"].edge_index = radius_graph(
             p_R, r=self.radial_cutoff
-        ) #使用 radius_graph 为口袋分别生成一个在 self.radial_cutoff 半径内的图边，生成配体内的边 p2p
+        ) 
         complex["pocket", "p2l", "ligand"].edge_index = pl_index
 
-        l2l_weight = torch.norm( #计算每条边的距离并保存为边权重。
+        l2l_weight = torch.norm( 
             complex["ligand"].pos[complex["l2l"].edge_index[0]]
             - complex["ligand"].pos[complex["l2l"].edge_index[1]],
             dim=-1,
         )
-        p2p_weight = torch.norm( #计算每条边的距离并保存为边权重。
+        p2p_weight = torch.norm( 
             complex["pocket"].pos[complex["p2p"].edge_index[0]]
             - complex["pocket"].pos[complex["p2p"].edge_index[1]],
             dim=-1,
         )
-        p2l_weight = torch.norm( #计算每条边的距离并保存为边权重。
+        p2l_weight = torch.norm(
             complex["pocket"].pos[p_index] - complex["ligand"].pos[l_index], dim=-1
         )
 
-        l2l_attr = self.distance_expand1(l2l_weight)[0]  #对边属性进行高斯扩展，以便学到更好的属性特征
+        l2l_attr = self.distance_expand1(l2l_weight)[0] 
         p2p_attr = self.distance_expand1(p2p_weight)[0]
         p2l_attr = self.distance_expand1(p2l_weight)[0]
 
@@ -326,7 +326,7 @@ class DataProcessor(object):
         )
 
 
-        return complex, traj  #complex 主要用于建模静态结构信息; traj:构建的一个包含多帧图的批处理数据，表示分子生成过程中各个步骤的轨迹--表示分子生成过程中各个步骤的轨迹,动态过程
+        return complex, traj  
 
 
 class MoleculeDataset(Dataset):
@@ -377,7 +377,7 @@ class PDBbindDataset(MoleculeDataset):
                 data = pickle.load(f)
                 # print("======data=====",data)
                 # exit()
-            whole, traj = self.processor.get_input_from_data(data) ################################ traj.dist_ll_output出现nan
+            whole, traj = self.processor.get_input_from_data(data) ##############
             #print("======11111111111======",traj.dist_ll_output.sum())
             #print("=============whole====", whole)
             # print("=============whole_ligand====", whole["ligand"])
