@@ -7,7 +7,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as fn
 from preprocessing import *
-from model.DeepRL_DDA import DeepRL_DDA_model
+from model.DeepRL_DDA_model import DeepRL_DDA_model
 from metric import *
 
 
