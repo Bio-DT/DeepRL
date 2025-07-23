@@ -98,10 +98,10 @@ class Generator(DataProcessor):
         ########### DEPRECATED ###########
         #### DELETED IN LATER VERSION ####
 
-        data_idx, sample_idx = idxs #(0,1)  data_idx表示test_keys.pkl文件种的第一个；sample_idx表示产生第一个样本
+        data_idx, sample_idx = idxs 
 
-        key = self.keys[data_idx]   #表示test_keys.pkl文件中的名字
-        name = f"{key}_{sample_idx}"  #产生第data_idx的名字
+        key = self.keys[data_idx]   
+        name = f"{key}_{sample_idx}"  
         fn = f"{self.result_dir}/{name}.xyz"
         fn2 = f"{self.result_dir}/{name}.sdf"
 
@@ -111,9 +111,8 @@ class Generator(DataProcessor):
         input = self._get_input_from_data(self.data_list[data_idx])  #.../DeepICL-master/example
         output = self._generate_molecule(*input)
         msg = f"{name}"
-        '''以下三行代码的功能是将原子类型和坐标数据保存为 XYZ 格式文件，然后通过 obabel 工具将该文件转换为另一种格式（例如 PDB、SDF 等），最后删除临时生成的 XYZ 文件。'''
         utils.write_xyz(output[0], output[1], msg=msg, fn=fn, is_onehot=True)  
-        os.system(f"obabel '{fn}' -O '{fn2}' 2> /dev/null") #'obabel {fn} -O {fn2}'：obabel 命令会将文件 fn（刚刚保存的 XYZ 文件）转换成指定的输出格式，并保存为 fn2;例如，如果 fn 是一个 .xyz 文件，obabel 可以将它转换为 .pdb 或 .mol2 格式，具体取决于 fn2 的文件扩展名。
+        os.system(f"obabel '{fn}' -O '{fn2}' 2> /dev/null")
         os.unlink(fn)
         return
 
@@ -134,19 +133,12 @@ class Generator(DataProcessor):
             (self.pocket_coeff_thr - mean_dist) * self.pocket_coeff_beta
         )
         self.pocket_coeff = torch.clamp(self.pocket_coeff, max=self.pocket_coeff_max)
-    '''这段代码定义了一个 _pocket_coeff_scheduler 方法，它是一个调度器，
-    用于根据输入的 mean_dist(平均距离)动态调整一个叫做 pocket_coeff 的系数。
-
-    torch.clamp()函数用于限制输入张量input中每个元素的范围。具体来说,
-    该函数将input张量中每个元素的值限制在min和max之间。如果元素的值小于min,
-    则将其替换为min;如果元素的值大于max,则将其替换为max。函数返回一个新的张量,
-    其中包含了限制后的元素值。'''
 
     def _make_input_list(
         self,
     ):
         input_list = [
-            (i, j) for i in range(len(self.keys)) for j in range(self.args.num_sample) #num_sample-->产生的样本数量
+            (i, j) for i in range(len(self.keys)) for j in range(self.args.num_sample) #num_sample
         ]
         return input_list
 
@@ -168,7 +160,7 @@ class Generator(DataProcessor):
             scaff_n,
             _,
             _,
-            pocket_prop,  #相互作用的类型[0. 0. 0. 1. 0. 0. 0.]，1表示这个位置的作用类型
+            pocket_prop, 
             center_of_mass
         ) = data
 
@@ -222,7 +214,7 @@ class Generator(DataProcessor):
 
         latent = torch.randn((1, self.args.num_latent_feature), device=self.device)
 
-        if not self.args.conditional:  #指的是相互作用信息
+        if not self.args.conditional: 
             p_cond = None
         elif self.args.use_condition:
             p_cond = p_dict["p_cond"]
@@ -271,9 +263,7 @@ class Generator(DataProcessor):
 
 
             # Get surrounding pocket atoms
-            p_ind = torch.topk(torch.cdist(f_R, p_dict["p_R"]), k=self.args.k, dim=-1, largest=False)[1][0] #p_ind-->表示索引  #topk()用于从张量(tensor)中选取最大的k个值及其对应的索引
-                                                                                                            #torch.cdist()函数用于计算两个张量之间的成对欧几里得距离。
-                                                                                                            # 它返回一个矩阵，其中每个元素表示两个输入张量中对应元素之间的距离
+            p_ind = torch.topk(torch.cdist(f_R, p_dict["p_R"]), k=self.args.k, dim=-1, largest=False)[1][0]                                                                                                    
             p_Z_in = p_dict["p_Z"][p_ind]
             p_R_in = p_dict["p_R"][p_ind]
             p_to_f_dist = torch.mean(torch.cdist(f_R, p_R_in))
@@ -289,7 +279,7 @@ class Generator(DataProcessor):
             data["ligand"].pos = l_R_in
             data["pocket"].pos = p_R_in
 
-            l2l_index = radius_graph(l_R_in, r=self.radial_cutoff) #构建节点之间的边：具体而言，它根据节点之间的距离是否小于某个指定的阈值（r）来决定是否在两个节点之间建立边
+            l2l_index = radius_graph(l_R_in, r=self.radial_cutoff) 
             p2p_index = radius_graph(p_R_in, r=self.radial_cutoff)
             l_index = (
                 torch.LongTensor(list(range(i + self.num_token)))
@@ -312,7 +302,7 @@ class Generator(DataProcessor):
                 data["ligand"].pos[data["l2l"].edge_index[0]]
                 - data["ligand"].pos[data["l2l"].edge_index[1]],
                 dim=-1,
-            ) #[0]和[1]分别表示每条边的起点和终点，最后通过norm()计算每条边的欧几里得距离
+            ) 
             p2p_weight = torch.norm(
                 data["pocket"].pos[data["p2p"].edge_index[0]]
                 - data["pocket"].pos[data["p2p"].edge_index[1]],
@@ -407,7 +397,7 @@ class Generator(DataProcessor):
             dists = torch.cdist(torch.cat([p_R_in, l_R_in], 0), grid)
             dists -= self.min_dist
             dists *= (self.n_bins - 1) / (self.max_dist - self.min_dist)
-            dists.clamp_(0, self.n_bins - 1)  #用于 对张量 dists 的值进行限制。
+            dists.clamp_(0, self.n_bins - 1) 
             dist_inds = dists.long()
             grid_log_prob = torch.gather(next_dist_log_prob, -1, dist_inds)
             grid_log_prob = grid_log_prob.sum(0)
@@ -490,7 +480,7 @@ class Generator(DataProcessor):
 def main():
     # 0. Argument setting
     args = generate_args_parser()
-    d = vars(args)  #将命令行参数转换为字典格式
+    d = vars(args)  
     lines = [f"{a} = {d[a]}\n" for a in d]
     if args.verbose:
         print("####################################################")
