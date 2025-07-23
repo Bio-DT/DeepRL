@@ -60,17 +60,17 @@ def get_cuda_visible_devices(num_gpus: int) -> str:
 
     if num_gpus:
         for i in range(max_num_gpus):
-            #cmd = ["nvidia-smi", "-i", str(i)] #原来的
-            #cmd = ["nvidia-smi", "-i", str(i), "--query-gpu=utilization.gpu", "--format=csv,noheader,nounits"] #该命令使用 nvidia-smi 查询第 i 个 GPU 的利用率 (--query-gpu=utilization.gpu) 并返回纯数字输出（没有单位）
-            cmd = ["nvidia-smi", "-i", str(i), "--query-gpu=memory.free", "--format=csv,noheader,nounits"] #该命令使用 nvidia-smi 查询第 i 个 GPU 的利用率 (--query-gpu=utilization.gpu) 并返回纯数字输出（没有单位）
+            #cmd = ["nvidia-smi", "-i", str(i)] 
+            #cmd = ["nvidia-smi", "-i", str(i), "--query-gpu=utilization.gpu", "--format=csv,noheader,nounits"] 
+            cmd = ["nvidia-smi", "-i", str(i), "--query-gpu=memory.free", "--format=csv,noheader,nounits"] 
 
             import sys
 
-            major, minor = sys.version_info[0], sys.version_info[1] #判断python版本号，例如python=3.9-->major=3,minor=9
+            major, minor = sys.version_info[0], sys.version_info[1] 
 
             if major == 3 and minor > 6:
                 proc = subprocess.run(
-                    cmd, capture_output=True, text=True  #将 capture_output 设置为 True 表示捕获捕获标准输出（stdout）和标准错误（stderr）。
+                    cmd, capture_output=True, text=True  
                 )  # after python 3.7
             if major == 3 and minor <= 6:
                 proc = subprocess.run(
@@ -80,17 +80,16 @@ def get_cuda_visible_devices(num_gpus: int) -> str:
             if "No devices were found" in proc.stdout:
                 break
 
-            # 解析输出的 GPU 利用率
-            #gpu_utilization = int(proc.stdout.strip())  # 转换为整数，利用率
-            free_memory = int(proc.stdout.strip())  # 转换为整数（MiB）
+            #gpu_utilization = int(proc.stdout.strip())  #
+            free_memory = int(proc.stdout.strip())  # 
 
-            # if "No running" in proc.stdout: #原来的
+            # if "No running" in proc.stdout: #
             #     idle_gpus.append(i)
 
-            # if gpu_utilization < 5: #如何GPU利用率小于5%，则认为是空闲
+            # if gpu_utilization < 5: 
             #     idle_gpus.append(i)
             
-            if free_memory > 3000: #如何GPU现存小于300MiB，则认为是空闲
+            if free_memory > 3000: 
                 idle_gpus.append(i)
 
             if len(idle_gpus) >= num_gpus:
