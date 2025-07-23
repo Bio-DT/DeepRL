@@ -107,11 +107,9 @@ class TestbedDataset(InMemoryDataset):
                                 y=torch.FloatTensor([labels]))
             GCNData.target = torch.LongTensor([target])
 
-            max_len = 1000  #drug_smiles最大长度
+            max_len = 1000  
             padded_sequences = []  
-            # 转换序列
             seq = second_sequence(smiles)
-            # 填充到最大长度
             padded = np.pad(seq, (0, max_len - len(seq)), mode='constant', constant_values=0)  #max_len - len(seq)
             padded_sequences.append(padded)
             GCNData.smile = torch.LongTensor(padded_sequences)
@@ -170,16 +168,12 @@ def ci(y,f):
     return ci
 
 def r2(y_true, y_pred):
-    # 计算真实值的均值
     y_mean = np.mean(y_true)
-    
-    # 计算总平方误差（总变异性）
+  
     total_sum_of_squares = np.sum((y_true - y_mean) ** 2)
-    
-    # 计算残差平方误差（回归模型的误差）
+
     residual_sum_of_squares = np.sum((y_true - y_pred) ** 2)#*0.1
-    
-    # 计算 R²（决定系数）
+
     r2 = 1 - (residual_sum_of_squares / total_sum_of_squares)
     
     return r2
