@@ -41,7 +41,7 @@ class DataProcessor_2(object):
 
     def get_random_traj(self, l_dict, p_dict, p_knn_index ):
 
-        avail = l_dict["l_Z"].new_zeros((l_dict["l_n"],)).float()  #L_Z 表示ligand_type;  l_n = l_Z.shape[0]
+        avail = l_dict["l_Z"].new_zeros((l_dict["l_n"],)).float() 
         adj = l_dict["l_adj"]
 
 
@@ -167,9 +167,9 @@ class DataProcessor_2(object):
             next_Z = l_dict["l_Z"][next : next + 1]
             next_R = l_dict["l_R"][next : next + 1]
 
-            #torch.set_printoptions(profile="full") #tensor：设置print()打印出所有元素
+            #torch.set_printoptions(profile="full")
 
-            next_ll_d = self.distance_expand2(torch.cdist(next_R, l_R_in))[0] #next_ll_d出现nan,一个主要的问题所在,self.distance_expand2()这个有问题nan
+            next_ll_d = self.distance_expand2(torch.cdist(next_R, l_R_in))[0] 
             next_lp_d = self.distance_expand2(torch.cdist(next_R, p_R_in))[0]
             
 
@@ -180,8 +180,8 @@ class DataProcessor_2(object):
             data_list.append(data)
 
 
-            #torch.set_printoptions(profile="full") #tensor：设置print()打印出所有元素
-            #np.set_printoptions(threshold=np.inf) #numpy：设置print()打印出所有元素
+            #torch.set_printoptions(profile="full") 
+            #np.set_printoptions(threshold=np.inf)
 
             # Update order, adj, avail
             order += [int(next)]
@@ -373,7 +373,7 @@ class PDBbindDataset_2(MoleculeDataset_2):
                 # print("======self.data_dir + key=====",self.data_dir + key)
                 # print("======data=====",data)
                 # exit()
-            whole, traj = self.processor.get_input_from_data(data) ################################ traj.dist_ll_output出现nan
+            whole, traj = self.processor.get_input_from_data(data) 
             #print("======11111111111======",traj.dist_ll_output.sum())
             # print("=============whole====", whole)
             # print("=============whole_ligand====", whole["ligand"])
