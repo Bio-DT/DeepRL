@@ -450,47 +450,38 @@ def drug_sequence(smiles):
 #     print("===============",simle_embedding.shape)
 
 def encode_drug(smiles_list):
-    # # 示例多个SMILES
+    # # SMILES
     # smiles_list = [
     #     'O=C1c2c(c3c4ccc(O)cc4n(C4OC(CO)C(O)C(O)C4O)c3c3[nH]c4cc(O)ccc4c23)C(=O)N1NC(CO)CO',
-    #     'C1=CC(=C(C=C1O)O)O',  # 儿茶酚
-    #     'CC(=O)OC1=CC=CC=C1C(=O)O'  # 阿司匹林
+    #     'C1=CC(=C(C=C1O)O)O', 
+    #     'CC(=O)OC1=CC=CC=C1C(=O)O' 
     # ]
 
-    # 1. 统一填充处理
     max_len = max(len(s) for s in smiles_list)
     padded_sequences = []
     
     for smiles in smiles_list:
-        # 转换序列
         seq = drug_sequence(smiles)
-        # 填充到最大长度
         padded = np.pad(seq, (0, max_len - len(seq)), mode='constant', constant_values=0)
         padded_sequences.append(padded)
 
-    # 2. 创建批次张量 (batch_size, seq_len)
+    # (batch_size, seq_len)
     batch_tensor = torch.LongTensor(padded_sequences)
-    print("Batch shape:", batch_tensor.shape)  # 例如 (3, 92)
-    # print("Batch smiles_token:", batch_tensor)  # 例如 (3, 92)
+    print("Batch shape:", batch_tensor.shape)  
+    # print("Batch smiles_token:", batch_tensor)  
 
-    # 3. 初始化模型
     molecule_encoder = Transformer_lar()
     
-    # 4. 批量编码
     batch_embeddings = molecule_encoder(batch_tensor)
     print("Embeddings shape:", batch_embeddings.shape)  # (batch_size, seq_len, dim)
 
-    # 5. 提取每个分子的表示（取序列最后一个有效token）
-    # 注意：需要记录原始长度用于截断填充部分
     original_lengths = [len(s) for s in smiles_list]
     
     molecular_representations = []
     for i, length in enumerate(original_lengths):
-        # 取最后一个有效token的嵌入
         rep = batch_embeddings[i, length-1, :]
         molecular_representations.append(rep)
 
-    # 或者使用平均池化
     # pooled_reps = [batch_embeddings[i, :length, :].mean(dim=0) 
     #                for i, length in enumerate(original_lengths)]
 
@@ -498,47 +489,38 @@ def encode_drug(smiles_list):
 
 
 def encode_protein(sequences_list):
-    # # 示例多个SMILES
+    # # SMILES
     # smiles_list = [
     #     'O=C1c2c(c3c4ccc(O)cc4n(C4OC(CO)C(O)C(O)C4O)c3c3[nH]c4cc(O)ccc4c23)C(=O)N1NC(CO)CO',
-    #     'C1=CC(=C(C=C1O)O)O',  # 儿茶酚
-    #     'CC(=O)OC1=CC=CC=C1C(=O)O'  # 阿司匹林
+    #     'C1=CC(=C(C=C1O)O)O',  
+    #     'CC(=O)OC1=CC=CC=C1C(=O)O'  # 
     # ]
 
-    # 1. 统一填充处理
     max_len = max(len(s) for s in sequences_list)
     padded_sequences = []
     
     for sequences in sequences_list:
-        # 转换序列
         seq = protein_sequence(sequences)
-        # 填充到最大长度
         padded = np.pad(seq, (0, max_len - len(seq)), mode='constant', constant_values=0)
         padded_sequences.append(padded)
 
-    # 2. 创建批次张量 (batch_size, seq_len)
+    # batch_size, seq_len)
     batch_tensor = torch.LongTensor(padded_sequences)
-    print("Batch shape:", batch_tensor.shape)  # 例如 (3, 92)
-    # print("Batch smiles_token:", batch_tensor)  # 例如 (3, 92)
+    print("Batch shape:", batch_tensor.shape)  
+    # print("Batch smiles_token:", batch_tensor)  
 
-    # 3. 初始化模型
     molecule_encoder = Transformer_lar()
     
-    # 4. 批量编码
     batch_embeddings = molecule_encoder(batch_tensor)
     print("Embeddings shape:", batch_embeddings.shape)  # (batch_size, seq_len, dim)
 
-    # 5. 提取每个分子的表示（取序列最后一个有效token）
-    # 注意：需要记录原始长度用于截断填充部分
     original_lengths = [len(s) for s in smiles_list]
     
     protein_representations = []
     for i, length in enumerate(original_lengths):
-        # 取最后一个有效token的嵌入
         rep = batch_embeddings[i, length-1, :]
         protein_representations.append(rep)
 
-    # 或者使用平均池化
     # pooled_reps = [batch_embeddings[i, :length, :].mean(dim=0) 
     #                for i, length in enumerate(original_lengths)]
 
@@ -549,11 +531,11 @@ def encode_protein(sequences_list):
 
 
 if __name__ == '__main__':
-    # 示例多个SMILES
+    # SMILES
     smiles_list = [
         'O=C1c2c(c3c4ccc(O)cc4n(C4OC(CO)C(O)C(O)C4O)c3c3[nH]c4cc(O)ccc4c23)C(=O)N1NC(CO)CO',
-        'C1=CC(=C(C=C1O)O)O',  # 儿茶酚
-        'CC(=O)OC1=CC=CC=C1C(=O)O'  # 阿司匹林
+        'C1=CC(=C(C=C1O)O)O', 
+        'CC(=O)OC1=CC=CC=C1C(=O)O' 
     ]
 
     molecular_rep_llm = encode_drug(smiles_list)
