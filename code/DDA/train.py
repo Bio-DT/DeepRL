@@ -15,7 +15,7 @@ device = torch.device('cuda')
 
 # print(
 #     "Number of Parameters: ",
-#     sum(p.numel() for p in model.parameters() if p.requires_grad),  #numel() 计算张量中的元素个数
+#     sum(p.numel() for p in model.parameters() if p.requires_grad),  
 #     flush=True,
 # )
 
@@ -24,25 +24,25 @@ device = torch.device('cuda')
 if __name__ == '__main__':
 
     parser = argparse.ArgumentParser()
-    parser.add_argument('--iteration', type=int, default=10, help='iteration')  #10
-    parser.add_argument('--epochs', type=int, default=300, help='number of epochs to train') #200
-    parser.add_argument('--lr', type=float, default=2e-4, help='learning rate') #2e-4-->不错
-    parser.add_argument('--weight_decay', type=float, default=1e-3, help='weight_decay') #1e-3
-    parser.add_argument('--random_seed', type=int, default=666, help='random seed')  #666
-    parser.add_argument('--neighbor', type=int, default=5, help='neighbor') #5-->不错
+    parser.add_argument('--iteration', type=int, default=10, help='iteration') 
+    parser.add_argument('--epochs', type=int, default=300, help='number of epochs to train') 
+    parser.add_argument('--lr', type=float, default=2e-4, help='learning rate') 
+    parser.add_argument('--weight_decay', type=float, default=1e-3, help='weight_decay') 
+    parser.add_argument('--random_seed', type=int, default=666, help='random seed')  
+    parser.add_argument('--neighbor', type=int, default=5, help='neighbor') 
     parser.add_argument('--negative_rate', type=float, default=1.0, help='negative_rate')
     parser.add_argument('--dataset', default='C-dataset', help='dataset')
-    parser.add_argument('--dropout', default='0.5', type=float, help='dropout')  #0.4-->不错
-    parser.add_argument('--gt_layer', default='2', type=int, help='graph transformer layer') #2
-    parser.add_argument('--gt_head', default='2', type=int, help='graph transformer head') #2
-    parser.add_argument('--gt_out_dim', default='256', type=int, help='graph transformer output dimension')#200
-    parser.add_argument('--hgt_layer', default='2', type=int, help='heterogeneous graph transformer layer') #2                       
-    parser.add_argument('--hgt_head', default='8', type=int, help='heterogeneous graph transformer head') #8
-    parser.add_argument('--hgt_in_dim', default='64', type=int, help='heterogeneous graph transformer input dimension') #64
-    parser.add_argument('--hgt_head_dim', default='32', type=int, help='heterogeneous graph transformer head dimension') #25
-    parser.add_argument('--hgt_out_dim', default='256', type=int, help='heterogeneous graph transformer output dimension')#200
-    parser.add_argument('--tr_layer', default='2', type=int, help='transformer layer') #2
-    parser.add_argument('--tr_head', default='4', type=int, help='transformer head') #4
+    parser.add_argument('--dropout', default='0.5', type=float, help='dropout') 
+    parser.add_argument('--gt_layer', default='2', type=int, help='graph transformer layer') 
+    parser.add_argument('--gt_head', default='2', type=int, help='graph transformer head') 
+    parser.add_argument('--gt_out_dim', default='256', type=int, help='graph transformer output dimension')
+    parser.add_argument('--hgt_layer', default='2', type=int, help='heterogeneous graph transformer layer')                        
+    parser.add_argument('--hgt_head', default='8', type=int, help='heterogeneous graph transformer head') 
+    parser.add_argument('--hgt_in_dim', default='64', type=int, help='heterogeneous graph transformer input dimension') 
+    parser.add_argument('--hgt_head_dim', default='32', type=int, help='heterogeneous graph transformer head dimension') 
+    parser.add_argument('--hgt_out_dim', default='256', type=int, help='heterogeneous graph transformer output dimension')
+    parser.add_argument('--tr_layer', default='2', type=int, help='transformer layer') 
+    parser.add_argument('--tr_head', default='4', type=int, help='transformer head') 
 
     args = parser.parse_args()
     args.data_dir = './DeepRL/DDA/data/' + args.dataset + '/'
