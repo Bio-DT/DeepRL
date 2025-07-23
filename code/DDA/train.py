@@ -45,7 +45,7 @@ if __name__ == '__main__':
     parser.add_argument('--tr_head', default='4', type=int, help='transformer head') #4
 
     args = parser.parse_args()
-    args.data_dir = '/media/estar/98519505-51e9-4e2d-b09d-5a389290bcd9/yh/DeepRL/DDA/data/' + args.dataset + '/'
+    args.data_dir = './DeepRL/DDA/data/' + args.dataset + '/'
     args.result_dir = 'Result/' + args.dataset + '/AMNTDDA/'
 
     data = get_data(args)
