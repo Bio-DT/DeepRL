@@ -531,7 +531,7 @@ def encode_protein(sequences_list):
 
 
 if __name__ == '__main__':
-    # 示例多个SMILES
+    # SMILES
     smiles_list = [
         'O=C1c2c(c3c4ccc(O)cc4n(C4OC(CO)C(O)C(O)C4O)c3c3[nH]c4cc(O)ccc4c23)C(=O)N1NC(CO)CO',
         'C1=CC(=C(C=C1O)O)O', 
