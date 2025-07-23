@@ -48,7 +48,7 @@ For DDA prediction, run the following commands:
 
 For DTA prediction, run the following commands:
 - conda activate DeepRL
-- python create_data.py
+- python data_processing.py
 - For Davis dataset, run python train.py 0 0 0
 - For Kiba dataset, run python train.py 1 1 0
 
