@@ -41,7 +41,7 @@ class DataProcessor(object):
 
     def get_random_traj(self, l_dict, p_dict, p_knn_index ):
 
-        avail = l_dict["l_Z"].new_zeros((l_dict["l_n"],)).float()  #L_Z 表示ligand_type;  l_n = l_Z.shape[0]
+        avail = l_dict["l_Z"].new_zeros((l_dict["l_n"],)).float()  
         adj = l_dict["l_adj"]
 
 
