@@ -265,7 +265,7 @@ class PDBbindDataProcessor(DataProcessor):
             tmp_dir="./DeepRL/3D/example" 
         )
 
-        self.ligand_data_dir = f"{data_dir}/????/????_ligand.sdf"  #”*”匹配任意0个或多个字符;”*”匹配任意0个或多个字符;”[ ]”匹配指定范围内的字符
+        self.ligand_data_dir = f"{data_dir}/????/????_ligand.sdf" 
         self.pocket_data_dir = f"{data_dir}/????/????_protein.pdb"
 
         # print("=========self.ligand_data_dir==", self.ligand_data_dir)
@@ -465,7 +465,7 @@ class PDBbindDataProcessor(DataProcessor):
         io.set_structure(structure)
 
         fd, path = tempfile.mkstemp(
-            suffix=".pdb", prefix="tmp_poc_", dir=self._tmp_dir ##############出现的问题在这里
+            suffix=".pdb", prefix="tmp_poc_", dir=self._tmp_dir ############
         )
         if use_whole_protein:
             io.save(path, NonHeteroSelect())
@@ -594,7 +594,7 @@ class PDBbindDataProcessor(DataProcessor):
 
             assert complex_mol is not None
 
-        except Exception as e: ########################################出问题的地方
+        except Exception as e: ####################################
             print(traceback.format_exc())
             return
 
