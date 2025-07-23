@@ -21,14 +21,8 @@ from scipy.spatial import distance_matrix
 import torch
 
 
-# DATA_DIR = "/media/estar/98519505-51e9-4e2d-b09d-5a389290bcd9/yh/3D-molecular/DeepICL-master/data/PDBbind" ## directory to PDBbind v2020 general set 
-# SAVE_DIR = "/media/estar/98519505-51e9-4e2d-b09d-5a389290bcd9/yh/3D-molecular/DeepICL-master/data/PDBbind_PRO_SAVE_DIR" ## directory where processed data will be saved
-
-# DATA_DIR = "/media/estar/98519505-51e9-4e2d-b09d-5a389290bcd9/yh/3D-molecular/DeepICL-master/example" ## directory to PDBbind v2020 general set 
-# SAVE_DIR = "/media/estar/98519505-51e9-4e2d-b09d-5a389290bcd9/yh/3D-molecular/DeepICL-master/example" ## directory where processed data will be saved
-
-DATA_DIR = "/media/estar/98519505-51e9-4e2d-b09d-5a389290bcd9/yh/3D-molecular/DeepICL-master/example" ## directory to PDBbind v2020 general set 
-SAVE_DIR = "/media/estar/98519505-51e9-4e2d-b09d-5a389290bcd9/yh/3D-molecular/DeepICL-master/example_save" ## directory where processed data will be saved
+DATA_DIR = "./DeepRL/3D/example" ## directory to PDBbind v2020 general set 
+SAVE_DIR = "./DeepRL/3D/example_save" ## directory where processed data will be saved
 
 ATOM_TYPES = ["C", "N", "O", "F", "P", "S", "Cl", "Br"]
 AA_TYPES = [
@@ -174,7 +168,7 @@ class DataProcessor:
         max_atom_num=MAX_ATOM_NUM,  # maximum number of ligand atoms
         max_add_atom_num=MAX_ADD_ATOM_NUM,  # maximum number of ligand atoms to add 
         seed=SEED,
-        tmp_dir= "/media/estar/98519505-51e9-4e2d-b09d-5a389290bcd9/yh/3D-molecular/DeepICL-master/example" #"./temp/" #原来的
+        tmp_dir= "./DeepRL/3D/example" 
     ):
         self.data_dir = data_dir
 
@@ -268,7 +262,7 @@ class PDBbindDataProcessor(DataProcessor):
             max_atom_num=max_atom_num,  # maximum number of ligand atoms
             max_add_atom_num=max_add_atom_num,  # maximum number of ligand atoms to add 
             seed=seed,
-            tmp_dir="/media/estar/98519505-51e9-4e2d-b09d-5a389290bcd9/yh/3D-molecular/DeepICL-master/example" #" ./temp/"#原来
+            tmp_dir="./DeepRL/3D/example" 
         )
 
         self.ligand_data_dir = f"{data_dir}/????/????_ligand.sdf"  #”*”匹配任意0个或多个字符;”*”匹配任意0个或多个字符;”[ ]”匹配指定范围内的字符
@@ -276,7 +270,7 @@ class PDBbindDataProcessor(DataProcessor):
 
         # print("=========self.ligand_data_dir==", self.ligand_data_dir)
         # print("=========self.pocket_data_dir==", self.pocket_data_dir)
-        # sys.exit()
+        # exit()
 
 
         self.use_whole_protein = use_whole_protein
@@ -287,7 +281,7 @@ class PDBbindDataProcessor(DataProcessor):
 
         # print("=========len(self.ligand_data_fns)==", len(self.ligand_data_fns))
         # print("=========len(self.pocket_data_fns)==", len(self.pocket_data_fns))
-        # sys.exit()
+        # exit()
 
         assert len(self.ligand_data_fns) == len(
             self.pocket_data_fns
