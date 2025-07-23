@@ -59,7 +59,7 @@ all_prots = []
 datasets = ['kiba','davis']
 for dataset in datasets:
     print('convert data from DeepDTA for ', dataset)
-    fpath = '/media/estar/98519505-51e9-4e2d-b09d-5a389290bcd9/yh/DeepRL/DTA/data/' + dataset + '/'
+    fpath = './DeepRL/DTA/data/' + dataset + '/'
     train_fold = json.load(open(fpath + "folds/train_fold_setting1.txt"))
     train_fold = [ee for e in train_fold for ee in e ]
     valid_fold = json.load(open(fpath + "folds/test_fold_setting1.txt"))
@@ -84,7 +84,7 @@ for dataset in datasets:
             rows,cols = rows[train_fold], cols[train_fold]
         elif opt=='test':
             rows,cols = rows[valid_fold], cols[valid_fold]
-        with open('/media/estar/98519505-51e9-4e2d-b09d-5a389290bcd9/yh/DeepRL/DTA/data/' + dataset + '_' + opt + '.csv', 'w') as f:
+        with open('./DeepRL/DTA/data/' + dataset + '_' + opt + '.csv', 'w') as f:
             f.write('compound_iso_smiles,target_sequence,affinity\n')
             for pair_ind in range(len(rows)):
                 ls = []
@@ -108,7 +108,7 @@ compound_iso_smiles = []
 for dt_name in ['kiba','davis']:
     opts = ['train','test']
     for opt in opts:
-        df = pd.read_csv('/media/estar/98519505-51e9-4e2d-b09d-5a389290bcd9/yh/DeepRL/DTA/data/' + dt_name + '_' + opt + '.csv')  ###get smiles
+        df = pd.read_csv('./DeepRL/DTA/data/' + dt_name + '_' + opt + '.csv')  ###get smiles
         compound_iso_smiles += list( df['compound_iso_smiles'] )
 compound_iso_smiles = set(compound_iso_smiles)
 smile_graph = {}
@@ -119,24 +119,24 @@ for smile in compound_iso_smiles:
 datasets = ['davis','kiba']
 # convert to PyTorch data format
 for dataset in datasets:
-    processed_data_file_train = '/media/estar/98519505-51e9-4e2d-b09d-5a389290bcd9/yh/DeepRL/DTA/data/processed/' + dataset + '_train.pt'
-    processed_data_file_test = '/media/estar/98519505-51e9-4e2d-b09d-5a389290bcd9/yh/DeepRL/DTA/data/processed/' + dataset + '_test.pt'
+    processed_data_file_train = './DeepRL/DTA/data/processed/' + dataset + '_train.pt'
+    processed_data_file_test = './DeepRL/DTA/data/processed/' + dataset + '_test.pt'
     if ((not os.path.isfile(processed_data_file_train)) or (not os.path.isfile(processed_data_file_test))):
-        df = pd.read_csv('/media/estar/98519505-51e9-4e2d-b09d-5a389290bcd9/yh/DeepRL/DTA/data/' + dataset + '_train.csv')
+        df = pd.read_csv('./DeepRL/DTA/data/' + dataset + '_train.csv')
         train_drugs, train_prots, train_Y = list(df['compound_iso_smiles']),list(df['target_sequence']),list(df['affinity'])
         # drug_smi_llm = encode_smiles(train_drugs[0:2])  ###drug sequence encoding
         XT = [seq_cat(t) for t in train_prots]  ###protein sequence encoding
         train_drugs, train_prots,  train_Y = np.asarray(train_drugs), np.asarray(XT), np.asarray(train_Y)
-        df = pd.read_csv('/media/estar/98519505-51e9-4e2d-b09d-5a389290bcd9/yh/DeepRL/DTA/data/' + dataset + '_test.csv')
+        df = pd.read_csv('./DeepRL/DTA/data/' + dataset + '_test.csv')
         test_drugs, test_prots,  test_Y = list(df['compound_iso_smiles']),list(df['target_sequence']),list(df['affinity'])
         XT = [seq_cat(t) for t in test_prots]
         test_drugs, test_prots,  test_Y = np.asarray(test_drugs), np.asarray(XT), np.asarray(test_Y)
 
         # make data PyTorch Geometric ready
         print('preparing ', dataset + '_train.pt in pytorch format!')
-        train_data = TestbedDataset(root='/media/estar/98519505-51e9-4e2d-b09d-5a389290bcd9/yh/DeepRL/DTA/data', dataset=dataset+'_train', xd=train_drugs, xt=train_prots, y=train_Y, smile_graph=smile_graph)
+        train_data = TestbedDataset(root='./DeepRL/DTA/data', dataset=dataset+'_train', xd=train_drugs, xt=train_prots, y=train_Y, smile_graph=smile_graph)
         print('preparing ', dataset + '_test.pt in pytorch format!')
-        test_data = TestbedDataset(root='/media/estar/98519505-51e9-4e2d-b09d-5a389290bcd9/yh/DeepRL/DTA/data', dataset=dataset+'_test', xd=test_drugs, xt=test_prots, y=test_Y, smile_graph=smile_graph)
+        test_data = TestbedDataset(root='./DeepRL/DTA/data', dataset=dataset+'_test', xd=test_drugs, xt=test_prots, y=test_Y, smile_graph=smile_graph)
         print(processed_data_file_train, ' and ', processed_data_file_test, ' have been created')        
     else:
         print(processed_data_file_train, ' and ', processed_data_file_test, ' are already created')        
