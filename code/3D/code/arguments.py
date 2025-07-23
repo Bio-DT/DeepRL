@@ -18,12 +18,12 @@ def train_args_parser():
     parser.add_argument("--batch_size", help="batch_size", type=int, default=1)
 
     # DIRECTORY SETTINGS
-    parser.add_argument("--save_dir", help="save directory", type=str, default="/media/estar/98519505-51e9-4e2d-b09d-5a389290bcd9/yh/DeepRL/3D/code/SAVE_DIR/")
-    parser.add_argument("--data_dir", help="data directory", type=str, default="/media/estar/98519505-51e9-4e2d-b09d-5a389290bcd9/yh/DeepRL/3D/data/PDBbind_PRO_SAVE_DIR_1/")
-    parser.add_argument("--key_dir", help="key directory", type=str, default="/media/estar/98519505-51e9-4e2d-b09d-5a389290bcd9/yh/DeepRL/3D/data/keys_1/")
+    parser.add_argument("--save_dir", help="save directory", type=str, default="./DeepRL/3D/code/SAVE_DIR/")
+    parser.add_argument("--data_dir", help="data directory", type=str, default="./DeepRL/3D/data/PDBbind_PRO_SAVE_DIR_1/")
+    parser.add_argument("--key_dir", help="key directory", type=str, default="./DeepRL/3D/data/keys_1/")
 
-    parser.add_argument("--data_dir_2", help="data directory", type=str, default="/media/estar/98519505-51e9-4e2d-b09d-5a389290bcd9/yh/DeepRL/3D/data/PDBbind_PRO_SAVE_DIR_2/")
-    parser.add_argument("--key_dir_2", help="key directory", type=str, default="/media/estar/98519505-51e9-4e2d-b09d-5a389290bcd9/yh/DeepRL/3D/data/keys_2/")
+    parser.add_argument("--data_dir_2", help="data directory", type=str, default="./DeepRL/3D/data/PDBbind_PRO_SAVE_DIR_2/")
+    parser.add_argument("--key_dir_2", help="key directory", type=str, default="./DeepRL/3D/data/keys_2/")
     parser.add_argument("--restart_dir", help="restart model directory", type=str, default=False)
 
     # DATASET SETTINGS
@@ -108,15 +108,15 @@ def generate_args_parser():
 
     # DIRECTORY SETTINGS
     #####with_ligand#####
-    # parser.add_argument("--data_dir", help="data directory", type=str, default="/media/estar/98519505-51e9-4e2d-b09d-5a389290bcd9/yh/3D-molecular/DeepICL-master/example_with-ligand")
-    # parser.add_argument("--key_dir", help="key directory", type=str, default="/media/estar/98519505-51e9-4e2d-b09d-5a389290bcd9/yh/3D-molecular/DeepICL-master/example_with-ligand")
-    # parser.add_argument("--result_dir", help="result directory", type=str, default="/media/estar/98519505-51e9-4e2d-b09d-5a389290bcd9/yh/3D-molecular/DeepICL-master/example_with-ligand/results_dir")
+    # parser.add_argument("--data_dir", help="data directory", type=str, default="./DeepICL-master/example_with-ligand")
+    # parser.add_argument("--key_dir", help="key directory", type=str, default="./DeepICL-master/example_with-ligand")
+    # parser.add_argument("--result_dir", help="result directory", type=str, default="./DeepICL-master/example_with-ligand/results_dir")
     ####without_ligand#####
-    parser.add_argument("--data_dir", help="data directory", type=str, default="/media/estar/98519505-51e9-4e2d-b09d-5a389290bcd9/yh/DeepRL/3D/example")
-    parser.add_argument("--key_dir", help="key directory", type=str, default="/media/estar/98519505-51e9-4e2d-b09d-5a389290bcd9/yh/DeepRL/3D/example")
-    parser.add_argument("--result_dir", help="result directory", type=str, default="/media/estar/98519505-51e9-4e2d-b09d-5a389290bcd9/yh/DeepRL/3D/example/results_dir")
+    parser.add_argument("--data_dir", help="data directory", type=str, default="./DeepRL/3D/example")
+    parser.add_argument("--key_dir", help="key directory", type=str, default="./DeepRL/3D/example")
+    parser.add_argument("--result_dir", help="result directory", type=str, default="./DeepRL/3D/example/results_dir")
 
-    parser.add_argument("--restart_dir", help="restart model directory", type=str, default="/media/estar/98519505-51e9-4e2d-b09d-5a389290bcd9/yh/DeepRL/3D/code/SAVE_DIR/save_82.pt") #SAVE_DIR_32dim/save_86.pt 85
+    parser.add_argument("--restart_dir", help="restart model directory", type=str, default="./DeepRL/3D/code/SAVE_DIR/save_82.pt") #SAVE_DIR_32dim/save_86.pt 85
 
     # MODEL SETTINGS
     parser.add_argument("--num_layers", help="num layers", type=int, default=6)
@@ -198,13 +198,13 @@ def test_args_parser():
     parser.add_argument("--batch_size", help="batch_size", type=int, default=1)
 
     # DIRECTORY SETTINGS
-    parser.add_argument("--save_dir", help="save directory", type=str, default="/media/estar/98519505-51e9-4e2d-b09d-5a389290bcd9/yh/DeepRL/3D/code/SAVE_DIR/")
-    parser.add_argument("--data_dir", help="data directory", type=str, default="/media/estar/98519505-51e9-4e2d-b09d-5a389290bcd9/yh/DeepRL/3D/data/PDBbind_PRO_SAVE_DIR_1/")
-    parser.add_argument("--key_dir", help="key directory", type=str, default="/media/estar/98519505-51e9-4e2d-b09d-5a389290bcd9/yh/DeepRL/3D/data/keys_1/")
+    parser.add_argument("--save_dir", help="save directory", type=str, default="./DeepRL/3D/code/SAVE_DIR/")
+    parser.add_argument("--data_dir", help="data directory", type=str, default="./DeepRL/3D/data/PDBbind_PRO_SAVE_DIR_1/")
+    parser.add_argument("--key_dir", help="key directory", type=str, default="./DeepRL/3D/data/keys_1/")
 
-    parser.add_argument("--data_dir_2", help="data directory", type=str, default="/media/estar/98519505-51e9-4e2d-b09d-5a389290bcd9/yh/DeepRL/3D/data/PDBbind_PRO_SAVE_DIR_2/")
-    parser.add_argument("--key_dir_2", help="key directory", type=str, default="/media/estar/98519505-51e9-4e2d-b09d-5a389290bcd9/yh/DeepRL/3D/data/keys_2/")
-    parser.add_argument("--restart_dir", help="restart model directory", type=str, default="/media/estar/98519505-51e9-4e2d-b09d-5a389290bcd9/yh/DeepRL/3D/code/SAVE_DIR/save_18.pt") #save_10.pt不错
+    parser.add_argument("--data_dir_2", help="data directory", type=str, default="./DeepRL/3D/data/PDBbind_PRO_SAVE_DIR_2/")
+    parser.add_argument("--key_dir_2", help="key directory", type=str, default="./DeepRL/3D/data/keys_2/")
+    parser.add_argument("--restart_dir", help="restart model directory", type=str, default="./DeepRL/3D/code/SAVE_DIR/save_18.pt") #save_10.pt不错
 
     # DATASET SETTINGS
     parser.add_argument("--k", help="k for k-NN parameter", type=int, default=8)
