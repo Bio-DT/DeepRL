@@ -29,10 +29,6 @@ from pathlib import Path
 
 # os.environ['CUDA_VISIBLE_DEVICES'] = '0'
 
-'''cd /media/estar/98519505-51e9-4e2d-b09d-5a389290bcd9/yh/3D-molecular/DeepICL-master20240808/DeepICL-master
-   python script/train.py
-'''
-
 
 print(torch.__version__)
 if torch.cuda.is_available():
@@ -356,7 +352,7 @@ def main_worker(gpu, ngpus_per_node, args):
                     param_group["lr"] = lr * args.lr_decay
 
         ### TODO  #
-        if lr_tick > 30:
+        if lr_tick > 40:
             print("No longer model is learning: training stop")
             exit()
 
