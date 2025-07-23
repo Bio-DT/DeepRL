@@ -32,9 +32,9 @@ from pathlib import Path
 
 print(torch.__version__)
 if torch.cuda.is_available():
-    print("GPU可用")
+    print("GPU is available")
 else:
-    print("GPU不可用")
+    print("GPU is not available")
 
 # sys.exit()
 
@@ -65,7 +65,7 @@ def train(model, args, optimizer, data, data_2, train, device=None, scaler=None)
         # print("======True=====",t)
         # if t==305:
         #     exit()
-        sample = next(data, None) #如果迭代器已经耗尽（即没有更多的元素），它会返回 None，而不会引发 StopIteration 异常。
+        sample = next(data, None) 
         sample_2 = next(data_2, None)
         if sample is None:
             break
@@ -184,15 +184,13 @@ def main_worker(gpu, ngpus_per_node, args):
     #     name_label_map[row[0]] = row[3]
 
 
-    # ####归一化
+    # ###
     # data = name_label_map
-    # # 设置目标范围 [a, b]
     # a, b = 0, 1
-    # # 获取数值的最小值和最大值
     # min_value = min(name_label_map.values())
     # max_value = max(name_label_map.values())
 
-    # # 归一化到范围 [a, b]
+    # #  [a, b]
     # normalized_data = {k: round(a + ((v - min_value) * (b - a)) / (max_value - min_value), 4) for k, v in data.items()}
 
     train_dataloader = DataLoader(train_dataset, batch_size=1, num_workers=8, pin_memory=True #, sampler=train_sampler
@@ -222,7 +220,7 @@ def main_worker(gpu, ngpus_per_node, args):
 
     print(
         "Number of Parameters: ",
-        sum(p.numel() for p in model.parameters() if p.requires_grad),  #numel() 计算张量中的元素个数
+        sum(p.numel() for p in model.parameters() if p.requires_grad),  #numel() 
         flush=True,
     )
     print(utils.text_filling("Finished Loading Model"), flush=True)
@@ -234,7 +232,7 @@ def main_worker(gpu, ngpus_per_node, args):
 
     # Scaler (AMP)
     if args.autocast:
-        scaler = amp.GradScaler()  #它用于动态地scale梯度，‌以避免浮点数下溢问题，‌确保训练过程的稳定性。‌
+        scaler = amp.GradScaler() ‌
     else:
         scaler = None
 
@@ -286,7 +284,7 @@ def main_worker(gpu, ngpus_per_node, args):
         #     print("=====================",x)
         #     exit()
 
-        # KL annealing 退火
+        # KL annealing
         args.vae_coeff = vae_coeff_final + (vae_coeff_init - vae_coeff_final) * (
             (1 - args.vae_loss_beta) ** (epoch+1)
         )
@@ -402,7 +400,7 @@ def main():
 
     args.distributed = args.world_size > 1
 
-    #os.environ["CUDA_VISIBLE_DEVICES"] = utils.get_cuda_visible_devices(args.world_size) #world_size定义cuda的数量 args.world_size
+    #os.environ["CUDA_VISIBLE_DEVICES"] = utils.get_cuda_visible_devices(args.world_size) 
 
     if args.distributed:
         mp.spawn(
