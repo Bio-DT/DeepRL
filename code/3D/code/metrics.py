@@ -14,14 +14,11 @@ def mse(y,f):
     return mse
 
 def mae(y_obs, y_pred):  #mae=mean_absolute_error
-    # 将输入转为 NumPy 数组（如果它们是 Python 列表）
     # y_obs = np.array(y_obs)
     # y_pred = np.array(y_pred)
     
-    # 计算绝对误差
     absolute_error = np.abs(y_obs - y_pred)
     
-    # 计算平均绝对误差
     mae = np.mean(absolute_error)
     
     return mae
@@ -103,19 +100,15 @@ def r_squared_error(y_obs,y_pred):
     return mult / float(y_obs_sq * y_pred_sq)
 
 def r_squared(y_true, y_pred):
-    # 计算真实值的均值
     y_mean = np.mean(y_true)
     print("=======y_mean========",y_mean)
     
-    # 计算总平方误差（总变异性）
     total_sum_of_squares = np.sum((y_true - y_mean) ** 2)
     print("====total_sum_of_squares=======",total_sum_of_squares)
     
-    # 计算残差平方误差（回归模型的误差）
     residual_sum_of_squares = np.sum((y_true - y_pred) ** 2)#*0.1
     print("========residual_sum_of_squares=========",residual_sum_of_squares)
     
-    # 计算 R²（决定系数）
     r2 = 1 - (residual_sum_of_squares / total_sum_of_squares)
     
     return r2
